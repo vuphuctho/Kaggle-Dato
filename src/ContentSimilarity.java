@@ -22,10 +22,6 @@ import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.RAMDirectory;
 import org.apache.lucene.util.BytesRef;
 
-
-/*
- * 
- */
 public class ContentSimilarity {
 	private final String CONTENTFIELD = "CONTENT";
 	private HashSet<String> terms = new HashSet<String>();;
@@ -79,7 +75,7 @@ public class ContentSimilarity {
 
 	private Directory createIndex(String str1, String str2) throws IOException {
 		RAMDirectory directory = new RAMDirectory();
-		Analyzer analyzer = new StandardAnalyzer();
+		Analyzer analyzer = new CustomAnalyzer();
 		IndexWriterConfig config = new IndexWriterConfig(analyzer);
 		IndexWriter writer = new IndexWriter(directory, config);
 		addDocument(writer, str1);
@@ -114,7 +110,7 @@ public class ContentSimilarity {
 		String text1 = "Something is here. Testing it out!!";
 		String text2 = "Something is here. Test it out now!!";
 		String text3 = "Finish testing. Show result, don't return sh*t!";
-		ContentSimilarity cs = new ContentSimilarity(text1, text2);
+		ContentSimilarity cs = new ContentSimilarity(text1, text3);
 		
 		cs.calcSimilarity();
 	} 
