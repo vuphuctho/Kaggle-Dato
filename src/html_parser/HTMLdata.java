@@ -1,4 +1,5 @@
-package classes;
+package html_parser;
+
 import java.util.*;
 
 public class HTMLdata{
