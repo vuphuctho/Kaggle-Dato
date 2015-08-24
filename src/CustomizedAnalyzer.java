@@ -51,7 +51,7 @@ public class CustomizedAnalyzer extends Analyzer {
 		tokenStream.reset();
 		while (tokenStream.incrementToken()) {
 		    String term = charTermAttribute.toString();
-		    System.out.println(term);
+		    System.out.printf("[ " + term + " ] ");
 		}
 		return;
 	}
