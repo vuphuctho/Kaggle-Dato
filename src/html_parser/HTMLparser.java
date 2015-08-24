@@ -80,6 +80,18 @@ public class HTMLparser{
 		}
 	}
 
+	// get page title from input URL
+	public static String getPageTitle(String url) {
+		if (url.length() > 4 && url.substring(0, 4).compareTo("http")==0) {
+			try {
+				Document doc = Jsoup.connect(url).userAgent("Mozilla").ignoreContentType(true).get();
+				return doc.title();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		return "NIL";
+	}
 
 	public static void main(String[] args) {
 		
@@ -87,7 +99,10 @@ public class HTMLparser{
 
 		String html = null;
 		try {
-			html = readFile("0/114_raw_html.txt");
+			// for Tue's repo only
+			// html = readFile("0/114_raw_html.txt");
+			// for Tho's repo only
+			html = readFile("Data/0/0/114_raw_html.txt");
 		}
 		catch (Exception e) {
 			System.out.println(e);
@@ -100,6 +115,7 @@ public class HTMLparser{
 			System.out.println("link " + i);
 			ArrayList<String> this_link = allLinks.get(i);
 			System.out.println("html " + HTMLdata.getHTML(this_link));
+			System.out.println("html page title " + getPageTitle(HTMLdata.getHTML(this_link)));
 			System.out.println("content " + HTMLdata.getContent(this_link));
 			System.out.println("tag " + HTMLdata.getTag(this_link));
 		}
