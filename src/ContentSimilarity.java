@@ -1,4 +1,4 @@
-package analysis;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -115,9 +115,9 @@ public class ContentSimilarity {
 	 * Calculate similarity between 2 input texts
 	 * using Cosine similarity
 	 */
-	public void calcSimilarity() {
+	public double calcSimilarity() {
 		double sim = (v1.dotProduct(v2))/(v1.getNorm() * v2.getNorm());
-		System.out.printf("Similarity = %f\n", sim);
+		return sim;
 	}
 	
 	// Just for testing

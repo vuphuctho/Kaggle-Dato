@@ -1,4 +1,4 @@
-package analysis;
+
 
 import java.io.File;
 
@@ -32,7 +32,7 @@ import weka.filters.unsupervised.attribute.Remove;
  *  
  *  Example command-line:
  *  <pre>
- *  	java WekaClassifier -train train.csv - test test.csv -C last -R "1, 3" 
+ *  	java WekaClassifier -train train.csv -test test.csv -C last -R "1, 3" 
  *  						-M "weka.classifiers.trees.J48 -C 0.25"
  *  </pre>
  */
