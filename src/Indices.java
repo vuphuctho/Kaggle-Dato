@@ -18,7 +18,7 @@ public class Indices {
 	}
 		
 //	@Override
-	public int compareTo(Indicies other) {
+	public int compareTo(Indices other) {
 		return new Double(this.getContentCS()).compareTo(other.getContentCS());
 	}
 }
