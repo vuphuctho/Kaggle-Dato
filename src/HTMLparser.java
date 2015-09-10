@@ -102,7 +102,7 @@ public class HTMLparser{
 			// for Tue's repo only
 			// html = readFile("0/114_raw_html.txt");
 			// for Tho's repo only
-			html = readFile("Data/0/0/114_raw_html.txt");
+			html = readFile("Data/2/26_raw_html.txt");
 		}
 		catch (Exception e) {
 			System.out.println(e);

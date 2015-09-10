@@ -35,6 +35,9 @@ public class ContentSimilarity {
 	/* CONSTRUCTOR */
 	public ContentSimilarity(String str1, String str2){
 		try {
+			// temp sol for null input
+			if (str1==null|| str1.length()==0) str1="null";
+			if (str2==null|| str2.length()==0) str2="null";
 			Directory directory = createIndex(str1, str2);
 			IndexReader reader =  DirectoryReader.open(directory);
 			Map<String, Integer> f1 = getTermFrequency(reader, 0);
@@ -76,7 +79,7 @@ public class ContentSimilarity {
 				result.put(term, freq);
 				terms.add(term);
 			}
-		} catch (IOException e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		} 
 		return result;
@@ -124,9 +127,9 @@ public class ContentSimilarity {
 	public static void main(String[] args) {
 		String text1 = "Something is here. Testing it out!!";
 		String text2 = "Something is here. Test it out now!!";
-		String text3 = "Finish testing. Show result, don't return sh*t!";
+		String text3 = "";
 		ContentSimilarity cs = new ContentSimilarity(text1, text3);
 		
-		cs.calcSimilarity();
+		System.out.println(cs.calcSimilarity());
 	} 
 }
