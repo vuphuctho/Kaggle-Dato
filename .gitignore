@@ -12,5 +12,9 @@
 hs_err_pid*
 /bin/
 
-# Ignore data folder
+# Ignore CSV files
+*.csv
+
+# Ignore data folder and library folder
 /Data/
+/lib/

@@ -1,6 +1,7 @@
 
 import java.util.*;
 import java.io.*;
+import java.net.SocketTimeoutException;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -64,7 +65,6 @@ public class HTMLparser{
 	}
 
 	public static String readFile(String input) throws IOException {
-
 		File file = new File(input);
 		Scanner sc = new Scanner(file);
 		String lineSeparator = System.getProperty("line.separator");
@@ -84,13 +84,14 @@ public class HTMLparser{
 	public static String getPageTitle(String url) {
 		if (url.length() > 4 && url.substring(0, 4).compareTo("http")==0) {
 			try {
-				Document doc = Jsoup.connect(url).userAgent("Mozilla").ignoreContentType(true).get();
+				// set timeout to 10 seconds to wait for respond from server
+				Document doc = Jsoup.connect(url).userAgent("Mozilla").ignoreContentType(true).timeout(10000).get();
 				return doc.title();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
-		return "NIL";
+		return "null";
 	}
 
 	public static void main(String[] args) {
@@ -102,7 +103,7 @@ public class HTMLparser{
 			// for Tue's repo only
 			// html = readFile("0/114_raw_html.txt");
 			// for Tho's repo only
-			html = readFile("Data/2/26_raw_html.txt");
+			html = readFile("Data/htmls/26_raw_html.txt");
 		}
 		catch (Exception e) {
 			System.out.println(e);

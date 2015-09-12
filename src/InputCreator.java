@@ -18,8 +18,11 @@ public class InputCreator {
 			fw = new FileWriter("ClassifierInput.csv");
 
 			try {
-
-				Scanner sc = new Scanner("Data//train.csv"); //directory of train.csv
+				File training = new File("Data//train.csv");
+				if (!training.exists()) {
+					training.createNewFile();
+				}
+				Scanner sc = new Scanner(training); //directory of train.csv
 				sc.nextLine(); // jump first line
 
 				//format for one data item: name_dir, all features, result (0 or 1)
@@ -33,7 +36,7 @@ public class InputCreator {
 					fw.append(COMMA);	
 
 					List<Double> features = new ArrayList<Double>();
-					features = getFeatures.getFeatures(HTMLparser.readFile("Data//htmls//" + name_dir)); //directory of the html files
+					features = getFeatures.getFeatures("Data//htmls//" + name_dir); //directory of the html files
 				
 					for (int i = 0; i < features.size(); i++) {
 						fw.append(Double.toString(features.get(i)));
