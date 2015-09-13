@@ -6,6 +6,8 @@ import weka.classifiers.Evaluation;
 import weka.core.Instances;
 import weka.core.Utils;
 import weka.core.converters.CSVLoader;
+import weka.filters.Filter;
+import weka.filters.unsupervised.attribute.Remove;
 
 /*
  * This class is responsible to evaluate classification model
@@ -35,6 +37,11 @@ public class WekaEvaluator {
 		loader.setSource(new File(file));
 		this.data = loader.getDataSet();
 		data.setClassIndex(data.numAttributes()-1);
+		// remove first column (name of file)
+		String[] options = {"-R", "1"};
+		Remove remove = new Remove();
+		remove.setOptions(options);
+		data = Filter.useFilter(data, remove);
 	}
 	
 	public void setClassifier(String arg) throws Exception {
