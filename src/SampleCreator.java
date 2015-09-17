@@ -18,8 +18,8 @@ public class SampleCreator {
 			fw = new FileWriter("ClassifierInput.csv");
 
 			try {
-
-				Scanner sc = new Scanner("Data//train.csv"); //directory of train.csv
+				File training = new File("Data//train_v2.csv");
+				Scanner sc = new Scanner(training); //directory of train.csv
 				sc.nextLine(); // jump first line
 
 				//assume computer can store about 500kB in memory, store train.csv in train
@@ -28,31 +28,34 @@ public class SampleCreator {
 					String[] in = sc.nextLine().split(COMMA);					
 					train.add(in);
 				}
-
+				
+				// Ensure all data item is selected once only.
+				List<Integer> selected = new ArrayList<Integer>();
 				//write to SampleNum (2000, for example) examples
 				Random r = new Random();				
-								
 				//format for one data item: name_dir, all features, result (0 or 1)
-				for (int i = 0; i < SampleNum; i++) {
+				while (selected.size() < SampleNum) {
+					int index = r.nextInt(train.size());
+					if (!selected.contains(index)) {
+						selected.add(index);
+						String[] random_example = train.get(index);
+						String name_dir = random_example[0];
+						String result = random_example[1];
 
-					String[] random_example = train.get(r.nextInt(train.size()));
-					String name_dir = random_example[0];
-					String result = random_example[1];
+						fw.append(name_dir);
+						fw.append(COMMA);	
 
-					fw.append(name_dir);
-					fw.append(COMMA);	
-
-					List<Double> features = new ArrayList<Double>();
-					features = getFeatures.getFeatures(HTMLparser.readFile("Data//htmls//" + name_dir)); //directory of the html files				
-					for (int j = 0; j < features.size(); j++) {
-						fw.append(Double.toString(features.get(j)));
-						fw.append(COMMA);
+						List<Double> features = new ArrayList<Double>();
+						features = getFeatures.getFeatures(HTMLparser.readFile("Data//htmls//" + name_dir)); //directory of the html files				
+						for (int j = 0; j < features.size(); j++) {
+							fw.append(Double.toString(features.get(j)));
+							fw.append(COMMA);
+						}
+						
+						fw.append(result);
+						fw.append(NEWLINE);
 					}
-					
-					fw.append(result);
-					fw.append(NEWLINE);
 				}		
-				
 			}
 
 			catch (Exception e) { //catch of scanner
